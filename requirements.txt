@@ -1,0 +1,31 @@
+# PureRoot FastAPI service — Python 3.12
+#
+# Also required: pureroots-pricing (shared offer maths, OFFERS_AND_ADMIN §1). It is NOT on PyPI;
+# install it from the monorepo path:
+#   local:  pip install -e backend/shared/pureroots_pricing   (from the repo root)
+#   Docker: pip install /shared/pureroots_pricing             (backend/api/Dockerfile)
+#   Render: pip install ./backend/shared/pureroots_pricing
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+pydantic==2.10.4
+pydantic-settings==2.7.0
+email-validator==2.2.0
+
+SQLAlchemy==2.0.36
+psycopg[binary]==3.2.3
+alembic==1.14.0
+
+PyJWT==2.10.1
+bcrypt==4.2.1
+slowapi==0.1.9
+# Profile photo uploads (POST /auth/me/avatar): multipart parsing + image validation/re-encoding
+python-multipart==0.0.20
+Pillow==11.3.0
+
+httpx==0.28.1
+google-auth==2.37.0
+requests==2.32.3
+
+# Testing
+pytest==8.3.4
+pytest-cov==6.0.0
