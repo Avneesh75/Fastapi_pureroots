@@ -1,0 +1,50 @@
+# Render Blueprint for the PureRoots FastAPI service (this repo).
+# Render dashboard -> New -> Blueprint -> pick this repo. Values marked `sync: false` are asked for
+# during setup. DATABASE_URL must be the SAME PostgreSQL database the Django service uses: the API
+# reads Django's catalog tables (products, categories...) and Django reads the API's orders/carts.
+
+services:
+  - type: web
+    name: pureroots-api
+    runtime: python
+    plan: free                           # starter ($7/mo) avoids the 15-minute sleep
+    buildCommand: >-
+      pip install -r requirements.txt &&
+      pip install ./shared/pureroots_pricing
+    startCommand: >-
+      alembic upgrade head &&
+      uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL                # same connection URL as the Django service
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: INTERNAL_API_TOKEN          # must equal INTERNAL_API_TOKEN on the Django service
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: PUBLIC_SITE_URL
+        value: "https://pureroots-aahar.netlify.app"
+      - key: CORS_ORIGINS
+        value: "https://pureroots-aahar.netlify.app"
+      - key: DJANGO_INTERNAL_URL
+        value: "https://pureroots-web.onrender.com"
+      - key: SERVE_MEDIA
+        value: "true"
+      - key: MEDIA_ROOT                  # customer profile photos
+        value: /opt/render/project/src/media
+      - key: INTERNAL_HTTP_TIMEOUT_SECONDS
+        value: "15"
+      - key: UPI_VPA
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false

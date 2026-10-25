@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pureroots-pricing"
+version = "1.0.0"
+description = "PureRoots offer maths shared by the Django storefront and the FastAPI backend."
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools]
+packages = ["pureroots_pricing"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
