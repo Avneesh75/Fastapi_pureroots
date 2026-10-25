@@ -33,7 +33,7 @@ services:
       - key: CORS_ORIGINS
         value: "https://pureroots-aahar.netlify.app"
       - key: DJANGO_INTERNAL_URL
-        value: "https://pureroots-web.onrender.com"
+        value: "https://backend-pureroots.onrender.com"
       - key: SERVE_MEDIA
         value: "true"
       - key: MEDIA_ROOT                  # customer profile photos
